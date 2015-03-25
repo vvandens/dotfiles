@@ -1,3 +1,52 @@
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+
+export ANT_OPTS="-Xmx1G -XX:MaxPermSize=128m"
+export ANT_HOME=/opt/local/share/java/apache-ant
+export MAVEN_OPTS="-Xmx1G -XX:MaxPermSize=256m"
+export M2_REPO=/Users/vvandens/.m2/repository
+export M2_HOME=/opt/local/share/java/maven32
+export GIT_HOME=/usr/local/git
+
+# MacPorts Bash shell command completion
+if [ -f /opt/local/etc/bash_completion ]; then
+    . /opt/local/etc/bash_completion
+fi
+
+export http_proxy=`proxy-config -h`
+export https_proxy=`proxy-config -s`
+export ftp_proxy=`proxy-config -f`
+
+# MacPorts Installer addition on 2011-07-22_at_17:06:35: adding an appropriate PATH variable for use with MacPorts.
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+# Finished adapting your PATH environment variable for use with MacPorts.
+
+# MySQL Path
+export PATH=/usr/local/mysql/bin:$PATH
+# End MySQL Path
+
+# Oracle Path
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Applications/envdev/instantclient_11_2
+export SQLPATH=/Applications/envdev/instantclient_11_2
+export ORACLE_HOME=$SQLPATH
+export PATH=$SQLPATH:$PATH
+# End Oracle Path
+
+# Git path
+export PATH=$GIT_HOME/bin:$PATH
+source $GIT_HOME/contrib/completion/git-completion.bash
+# End Git path
+
+# ActivePivot license
+export ACTIVEPIVOT_LICENSE=/Users/vvandens/Documents/Business/Partenaires/QuartetFS/ActivePivot.lic.7380
+
+# Setenv from launchd.conf
+grep -E "^setenv" /etc/launchd.conf | xargs -t -L 1 launchctl > /dev/null 2>&1
+
+
+# MacPorts Installer addition on 2014-10-23_at_03:27:24: adding an appropriate PATH variable for use with MacPorts.
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# Finished adapting your PATH environment variable for use with MacPorts.
+
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
