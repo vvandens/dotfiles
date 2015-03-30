@@ -2,7 +2,7 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
 export ANT_OPTS="-Xmx1G -XX:MaxPermSize=128m"
 export ANT_HOME=/opt/local/share/java/apache-ant
-export MAVEN_OPTS="-Xmx1G -XX:MaxPermSize=256m"
+export MAVEN_OPTS="-Xmx2G -XX:MaxPermSize=256m"
 export M2_REPO=/Users/vvandens/.m2/repository
 export M2_HOME=/opt/local/share/java/maven32
 export GIT_HOME=/usr/local/git
