@@ -10,6 +10,9 @@ export M2_HOME=/opt/local/share/java/maven32
 if [ -f /opt/local/etc/bash_completion ]; then
     . /opt/local/etc/bash_completion
 fi
+if [ -f /opt/local/share/git/contrib/completion/git-completion.bash ]; then
+    . /opt/local/share/git/contrib/completion/git-completion.bash
+fi
 
 export http_proxy=`proxy-config -h`
 export https_proxy=`proxy-config -s`
