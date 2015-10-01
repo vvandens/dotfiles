@@ -14,9 +14,9 @@ fi
 #    . /opt/local/share/git/contrib/completion/git-completion.bash
 #fi
 
-export http_proxy=`proxy-config -h`
-export https_proxy=`proxy-config -s`
-export ftp_proxy=`proxy-config -f`
+export http_proxy=`networksetup -getwebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
+export https_proxy=`networksetup -getsecurewebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
+export ftp_proxy=`networksetup -getftpproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
 
 # MySQL Path
 export PATH=/usr/local/mysql/bin:$PATH
