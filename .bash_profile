@@ -1,10 +1,8 @@
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
-export ANT_HOME=`brew --prefix ant`/libexec
 export ANT_OPTS="-Xmx1G -XX:MaxPermSize=128m"
 export MAVEN_OPTS="-Xmx2G -XX:MaxPermSize=256m"
 export M2_REPO=/Users/vvandens/.m2/repository
-export M2_HOME=`brew --prefix maven32`/libexec
 
 # Brew bash shell command completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
