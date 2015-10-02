@@ -1,15 +1,16 @@
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
+export ANT_HOME=`brew --prefix ant`/libexec
 export ANT_OPTS="-Xmx1G -XX:MaxPermSize=128m"
-export ANT_HOME=/opt/local/share/java/apache-ant
 export MAVEN_OPTS="-Xmx2G -XX:MaxPermSize=256m"
 export M2_REPO=/Users/vvandens/.m2/repository
-export M2_HOME=/opt/local/share/java/maven32
+export M2_HOME=`brew --prefix maven32`/libexec
 
-# MacPorts Bash shell command completion
-if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion
+# Brew bash shell command completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
 fi
+
 #if [ -f /opt/local/share/git/contrib/completion/git-completion.bash ]; then
 #    . /opt/local/share/git/contrib/completion/git-completion.bash
 #fi
@@ -34,11 +35,6 @@ export ACTIVEPIVOT_LICENSE=/Users/vvandens/Documents/Business/Partenaires/Quarte
 
 # Setenv from launchd.conf
 grep -E "^setenv" /etc/launchd.conf | xargs -t -L 1 launchctl > /dev/null 2>&1
-
-
-# MacPorts Installer addition on 2014-10-23_at_03:27:24: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
 
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
@@ -90,3 +86,10 @@ complete -W "NSGlobalDomain" defaults;
 
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall;
+
+##
+# Your previous /Users/vvandens/.bash_profile file was backed up as /Users/vvandens/.bash_profile.macports-saved_2015-10-02_at_07:43:18
+##
+
+# Homebrew PAT for increased GitHub access quota
+export HOMEBREW_GITHUB_API_TOKEN=6d4b365084dfebdbfa5540c2749b8792a817d86e
