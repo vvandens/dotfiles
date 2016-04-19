@@ -4,14 +4,19 @@ export ANT_OPTS="-Xmx1G -XX:MaxPermSize=128m"
 export MAVEN_OPTS="-Xmx2G -XX:MaxPermSize=256m"
 export M2_REPO=/Users/vvandens/.m2/repository
 
+export ANDROID_HOME=/usr/local/opt/android-sdk
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+
+# Cordova bash shell command completion
+if [ -f /usr/local/lib/node_modules/cordova/scripts/cordova.completion ]; then
+  . /usr/local/lib/node_modules/cordova/scripts/cordova.completion
+fi
+
 # Brew bash shell command completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
-
-#if [ -f /opt/local/share/git/contrib/completion/git-completion.bash ]; then
-#    . /opt/local/share/git/contrib/completion/git-completion.bash
-#fi
 
 export http_proxy=`networksetup -getwebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
 export https_proxy=`networksetup -getsecurewebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
