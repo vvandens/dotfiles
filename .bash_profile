@@ -21,6 +21,9 @@ fi
 export http_proxy=`networksetup -getwebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
 export https_proxy=`networksetup -getsecurewebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
 export ftp_proxy=`networksetup -getftpproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
+export HTTP_PROXY=`networksetup -getwebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
+export HTTPS_PROXY=`networksetup -getsecurewebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
+export FTP_PROXY=`networksetup -getftpproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
 
 # MySQL Path
 export PATH=/usr/local/mysql/bin:$PATH
@@ -32,6 +35,10 @@ export SQLPATH=/Applications/envdev/instantclient_11_2
 export ORACLE_HOME=$SQLPATH
 export PATH=$SQLPATH:$PATH
 # End Oracle Path
+
+# Liqibase
+export LIQUIBASE_HOME=/Applications/envdev/liquibase
+export PATH=$LIQUIBASE_HOME:$PATH
 
 # ActivePivot license
 export ACTIVEPIVOT_LICENSE=/Users/vvandens/Documents/Business/Partenaires/QuartetFS/ActivePivot.lic.7380
@@ -96,3 +103,11 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 
 # Homebrew PAT for increased GitHub access quota
 export HOMEBREW_GITHUB_API_TOKEN=6d4b365084dfebdbfa5540c2749b8792a817d86e
+
+# Link pinentry and gpg agent together so that gpg does not ask passphrase for every signed commmit
+if test -f ~/.gnupg/.gpg-agent-info -a -n "$(pgrep gpg-agent)"; then
+  source ~/.gnupg/.gpg-agent-info
+  export GPG_AGENT_INFO
+else
+  eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
+fi
