@@ -105,9 +105,10 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 export HOMEBREW_GITHUB_API_TOKEN=6d4b365084dfebdbfa5540c2749b8792a817d86e
 
 # Link pinentry and gpg agent together so that gpg does not ask passphrase for every signed commmit
-if test -f ~/.gnupg/.gpg-agent-info -a -n "$(pgrep gpg-agent)"; then
-  source ~/.gnupg/.gpg-agent-info
-  export GPG_AGENT_INFO
-else
-  eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
-fi
+# useless as of gpg 2.1+
+#if test -f ~/.gnupg/.gpg-agent-info -a -n "$(pgrep gpg-agent)"; then
+#  source ~/.gnupg/.gpg-agent-info
+#  export GPG_AGENT_INFO
+#else
+#  eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
+#fi
