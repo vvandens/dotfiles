@@ -1,7 +1,7 @@
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
 export ANT_OPTS="-Xmx1G -XX:MaxPermSize=128m"
-export MAVEN_OPTS="-Xmx2G -XX:MaxPermSize=256m"
+export MAVEN_OPTS="-Xmx2G -XX:MaxPermSize=256m -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2"
 export M2_REPO=/Users/vvandens/.m2/repository
 
 export ANDROID_HOME=/usr/local/opt/android-sdk
@@ -21,9 +21,22 @@ fi
 export http_proxy=`networksetup -getwebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
 export https_proxy=`networksetup -getsecurewebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
 export ftp_proxy=`networksetup -getftpproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
-export HTTP_PROXY=`networksetup -getwebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
-export HTTPS_PROXY=`networksetup -getsecurewebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
-export FTP_PROXY=`networksetup -getftpproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
+export http_proxy_host=`networksetup -getwebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print l2}' | head -n 1`
+export http_proxy_port=`networksetup -getwebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print l3}' | head -n 1`
+export https_proxy_host=`networksetup -getsecurewebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print l2}' | head -n 1`
+export https_proxy_port=`networksetup -getsecurewebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print l3}' | head -n 1`
+export ftp_proxy_host=`networksetup -getftpproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print l2}' | head -n 1`
+export ftp_proxy_port=`networksetup -getftpproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print l3}' | head -n 1`
+
+export HTTP_PROXY=${http_proxy}
+export HTTPS_PROXY=${https_proxy}
+export FTP_PROXY=${ftp_proxy}
+export HTTP_PROXY_HOST=${http_proxy_host}
+export HTTP_PROXY_PORT=${http_proxy_port}
+export HTTPS_PROXY_HOST=${https_proxy_host}
+export HTTPS_PROXY_PORT=${https_proxy_port}
+export FTP_PROXY_HOST=${ftp_proxy_host}
+export FTP_PROXY_PORT=${ftp_proxy_port}
 
 # MySQL Path
 export PATH=/usr/local/mysql/bin:$PATH
@@ -39,6 +52,9 @@ export PATH=$SQLPATH:$PATH
 # Liqibase
 export LIQUIBASE_HOME=/Applications/envdev/liquibase
 export PATH=$LIQUIBASE_HOME:$PATH
+
+# NodeJS v10 pin
+export PATH="/usr/local/opt/node@10/bin:$PATH"
 
 # ActivePivot license
 export ACTIVEPIVOT_LICENSE=/Users/vvandens/Documents/Business/Partenaires/QuartetFS/ActivePivot.lic.7380
@@ -97,13 +113,6 @@ complete -W "NSGlobalDomain" defaults;
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall;
 
-##
-# Your previous /Users/vvandens/.bash_profile file was backed up as /Users/vvandens/.bash_profile.macports-saved_2015-10-02_at_07:43:18
-##
-
-# Homebrew PAT for increased GitHub access quota
-export HOMEBREW_GITHUB_API_TOKEN=6d4b365084dfebdbfa5540c2749b8792a817d86e
-
 # Link pinentry and gpg agent together so that gpg does not ask passphrase for every signed commmit
 # useless as of gpg 2.1+
 #if test -f ~/.gnupg/.gpg-agent-info -a -n "$(pgrep gpg-agent)"; then
@@ -111,4 +120,14 @@ export HOMEBREW_GITHUB_API_TOKEN=6d4b365084dfebdbfa5540c2749b8792a817d86e
 #  export GPG_AGENT_INFO
 #else
 #  eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
+#fi
+
+#if [ -z "$HTTP_PROXY" ]; then
+#  npm config delete proxy
+#  npm config delete http-proxy
+#  npm config delete https-proxy
+#else
+#  npm config set proxy $HTTP_PROXY
+#  npm config set http-proxy $HTTP_PROXY
+#  npm config set https-proxy $HTTPS_PROXY
 #fi
