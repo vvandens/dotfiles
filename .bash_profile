@@ -1,24 +1,37 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+export PATH=$(brew --prefix)/sbin:$PATH
+
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+#export JAVA_HOME=$(/usr/libexec/java_home)
 
 export ANT_OPTS="-Xmx1G -XX:MaxPermSize=128m"
-export MAVEN_OPTS="-Xmx2G -XX:MaxPermSize=256m -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2"
+export MAVEN_OPTS="-Xmx2G -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2"
 export M2_REPO=/Users/vvandens/.m2/repository
 
-export ANDROID_HOME=/usr/local/opt/android-sdk
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-export PATH=$ANDROID_HOME/tools:$PATH
+export ANDROID_HOME=~/Library/Android/sdk
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+
+export PATH=~/python_venv/bin:$PATH
+#export PATH=~/python_venv-3.11/bin:$PATH
 
 # Cordova bash shell command completion
-if [ -f /usr/local/lib/node_modules/cordova/scripts/cordova.completion ]; then
-  . /usr/local/lib/node_modules/cordova/scripts/cordova.completion
+if [ -f $(brew --prefix)/lib/node_modules/cordova/scripts/cordova.completion ]; then
+  . $(brew --prefix)/lib/node_modules/cordova/scripts/cordova.completion
 fi
 
 # Brew bash shell command completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
+
+# Nx bash completion
+if [ -f ./nx-completion.bash ]; then
+  . ./nx-completion.bash
+fi
+
 
 export http_proxy=`networksetup -getwebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
 export https_proxy=`networksetup -getsecurewebproxy Wi-Fi | awk {'print $2'} | awk '$1=="Yes" {getline l2; getline l3; print "http://"l2":"l3}' | head -n 1`
@@ -41,7 +54,7 @@ export FTP_PROXY_HOST=${ftp_proxy_host}
 export FTP_PROXY_PORT=${ftp_proxy_port}
 
 # MySQL Path
-export PATH=/usr/local/mysql/bin:$PATH
+export PATH=$(brew --prefix)/mysql/bin:$PATH
 # End MySQL Path
 
 # Oracle Path
@@ -55,8 +68,8 @@ export PATH=$SQLPATH:$PATH
 export LIQUIBASE_HOME=/Applications/envdev/liquibase
 export PATH=$LIQUIBASE_HOME:$PATH
 
-# NodeJS v10 pin
-export PATH="/usr/local/opt/node@10/bin:$PATH"
+# NodeJS v22 pin
+export PATH="$(brew --prefix)/opt/node@22/bin:$PATH"
 
 # ActivePivot license
 export ACTIVEPIVOT_LICENSE=/Users/vvandens/Documents/Business/Partenaires/QuartetFS/ActivePivot.lic.7380
@@ -133,3 +146,7 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 #  npm config set http-proxy $HTTP_PROXY
 #  npm config set https-proxy $HTTPS_PROXY
 #fi
+
+export PATH="$HOME/fvm/default/bin:$PATH"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+. "$HOME/.cargo/env"

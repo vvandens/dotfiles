@@ -33,7 +33,6 @@ gwt-unitCache
 *.swp
 *.log
 
-build
 
 # IntelliJ
 ######################

@@ -1,9 +1,6 @@
 [user]
 	name = Vincent Vandenschrick
 	email = vvandens@gmail.com
-[github]
-	user = vvandens
-	token = 792621bb3bcc4654db512b31dee440c6
 [credential]
 	helper = osxkeychain
 [alias]
@@ -152,7 +149,6 @@
 [commit]
 
 	# https://help.github.com/articles/signing-commits-using-gpg/
-	gpgsign = true
 
 [diff]
 
@@ -180,6 +176,7 @@
 	default = simple
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
+	autoSetupRemote = true
 
 # URL shorthands
 
@@ -202,3 +199,7 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
+[pull]
+	rebase = true
+[gpg]
+	program = gpg
